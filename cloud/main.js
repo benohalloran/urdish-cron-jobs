@@ -15,9 +15,6 @@ Parse.Cloud.job("dropData", function(request, status) {
                    ParseObject.delete(reviews);
                 }catch(ParseException pe) { pe.printStackTrace(); }
     
-                // OR (do not use both!)
-    
-                // iterate over all messages and delete them
                 for(ParseObject review : reviews)
                 {
                      review.deleteEventually();
