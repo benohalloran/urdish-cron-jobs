@@ -1,0 +1,14 @@
+{
+  "global": {
+    "parseVersion": "1.4.0"
+  },
+  "applications": {
+    "URDining": {
+      "applicationId": "5wYbQP2vDcMWBXWeTlNaB04W7CpbigqzhxllNMiW",
+      "masterKey": "TrRN0CRm2wSCPJwrPdwShk9Z5Y7YoACH61buydma"
+    },
+    "_default": {
+      "link": "URDining"
+    }
+  }
+}
