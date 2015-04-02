@@ -1,5 +1,4 @@
-
-// Use Parse.Cloud.define to define as many cloud functions as you want.
+//Use Parse.Cloud.define to define as many cloud functions as you want.
 // For example:
 //Parse.Cloud.define("hello", function(request, response) {
   //response.success("Hello world!");
@@ -7,22 +6,28 @@
 
 Parse.Cloud.job("dropData", function(request, status) {
     Parse.Cloud.useMasterKey();
-    ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Reviews");
-        query.findInBackground(new FindCallback<ParseObject>() {
-        public void done(List<ParseObject> reviews, ParseException e) {
-            if (e == null) {
-                try {
-                   ParseObject.delete(reviews);
-                }catch(ParseException pe) { pe.printStackTrace(); }
+    var Reviews = Parse.Object.extend("Reviews");
+    var query = new Parse.Query(Parse.Reviews);
     
-                for(ParseObject review : reviews)
-                {
-                     review.deleteEventually();
-                }
-            } else {
-                Log.d("Semothing went wrong. ", e.getMessage());
+    query.find({
+      success: function(results) {
+      
+        for (var i = 0; i < results.length; i++) { 
+          var object = results[i];
+          object.destroy({
+            success: function(object) {
+              // The object was deleted from the Parse Cloud.
+            },
+            error: function(object, error) {
+              // The delete failed.
+              // error is a Parse.Error with an error code and message.
             }
-    }
-});
+          });
+        } 
+      },
+      error: function(error) {
+        alert("Error: " + error.code + " " + error.message);
+      }
+    });
 
 }
