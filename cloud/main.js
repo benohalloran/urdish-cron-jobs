@@ -5,7 +5,7 @@ Parse.Cloud.job("Purge", function(request, status) {
   // Query for all users
   var query = new Parse.Query("Reviews");
   query.each(function(user) {
-      return user.delete();
+      return user.destroy();
   }).then(function() {
     // Set the job's success status
     status.success("Migration completed successfully.");
